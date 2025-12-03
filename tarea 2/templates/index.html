@@ -16,18 +16,22 @@
                 <p class="slogan">Calidad y tradición en cada animal</p>
             </div>
             <div class="contacto">
-                <p><strong>Teléfono:</strong> +54 9 11 1234-5678</p>
-                <p><strong>Ubicación:</strong> Campo "El Fortín", Buenos Aires</p>
+                <p><strong>Teléfono:</strong> +54 094984696</p>
+                <p><strong>Ubicación:</strong> Campo "El bananero Sapeeee", Chaco Paraguay</p>
+             
+                <a href="{{ url_for('contacto') }}" class="btn-contactanos">
+                    Contáctanos
+                </a>
             </div>
         </header>
 
-        <!-- Introducción -->
+      
         <section class="intro">
             <h2>Catálogo de Ganado Disponible</h2>
             <p>Seleccione entre nuestras categorías de animales disponibles para venta. Todos nuestros animales cuentan con certificado sanitario vigente.</p>
         </section>
 
-        <!-- Grid de animales -->
+  
         <main class="galeria">
             {% for animal in animales %}
             <div class="animal-card">
@@ -56,33 +60,31 @@
             {% endfor %}
         </main>
 
-        <!-- Información adicional -->
-        <section class="informacion">
-            <div class="info-box">
-                <h3><span class="icon">✓</span> Garantía de Salud</h3>
-                <p>Todos nuestros animales cuentan con certificado sanitario vigente y control veterinario periódico.</p>
-            </div>
-            <div class="info-box">
-                <h3><span class="icon">🚚</span> Envío Incluído</h3>
-                <p>Transporte de ganado a todo el país incluído en el precio para lotes superiores a 5 animales.</p>
-            </div>
-            <div class="info-box">
-                <h3><span class="icon">👨‍🌾</span> Asesoramiento</h3>
-                <p>Nuestros expertos le brindarán asesoramiento gratuito para seleccionar el ganado ideal.</p>
+
+        <section class="destacado-contacto">
+            <div class="destacado-contenido">
+                <h2>¿Interesado en algún animal?</h2>
+                <p>Contáctanos para obtener más información, programar una visita o realizar una oferta.</p>
+                <a href="{{ url_for('contacto') }}" class="btn-destacado">
+                    Solicitar información
+                </a>
             </div>
         </section>
 
-        <!-- Footer -->
+
+  
         <footer class="footer">
             <div class="footer-section">
                 <h4>Venta de Ganado</h4>
                 <p>Especialistas en ganadería de calidad desde 1995.</p>
+                <a href="{{ url_for('contacto') }}" class="btn-footer">
+                    Contáctanos
+                </a>
             </div>
             <div class="footer-section">
                 <h4>Contacto</h4>
-                <p><strong>Teléfono:</strong> +54 9 11 1234-5678</p>
-                <p><strong>Email:</strong> contacto@ventaganado.com</p>
-                <p><strong>Dirección:</strong> Ruta 5, Km 123, Buenos Aires</p>
+                <p><strong>Teléfono:</strong> +54 0984984696</p>
+                <p><strong>Email:</strong> el bananero@sape.com</p>
             </div>
             <div class="footer-section">
                 <h4>Horarios</h4>
@@ -90,13 +92,10 @@
                 <p>Sábados: 8:00 - 13:00</p>
                 <p>Domingos: Cerrado</p>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 Venta de Ganado. Todos los derechos reservados.</p>
-            </div>
         </footer>
     </div>
 
-    <!-- Modal de consulta (simple) -->
+
     <div id="modal-consulta" class="modal">
         <div class="modal-contenido">
             <span class="cerrar-modal" onclick="cerrarModal()">×</span>
@@ -123,9 +122,9 @@
         </div>
     </div>
 
-    <!-- JavaScript simple incluido en el HTML -->
+
     <script>
-        // Funciones para el modal
+
         function mostrarConsulta(nombreAnimal) {
             document.getElementById('nombre-animal').textContent = nombreAnimal;
             document.getElementById('modal-consulta').style.display = 'flex';
@@ -146,18 +145,12 @@
             cerrarModal();
         }
         
-        // Cerrar modal al hacer clic fuera
+
         window.onclick = function(event) {
             const modal = document.getElementById('modal-consulta');
             if (event.target === modal) {
                 cerrarModal();
             }
-        }
-        
-        // Función para manejar imágenes que no cargan
-        function manejarErrorImagen(imagen) {
-            const nombre = imagen.alt;
-            imagen.src = `https://via.placeholder.com/400x300/4CAF50/ffffff?text=${encodeURIComponent(nombre)}`;
         }
     </script>
 </body>
