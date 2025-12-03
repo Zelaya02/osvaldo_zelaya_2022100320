@@ -1,5 +1,3 @@
-primeramente compilar el script para la creacion de la base de datos en mysql
-
 CREATE DATABASE IF NOT EXISTS ganaderia_db;
 USE ganaderia_db;
 
@@ -33,5 +31,3 @@ INSERT INTO ganado (categoria, lote, cantidad, precio, imagen, descripcion) VALU
 ('vaquillona', 'Lote D', 15, 1500000.00, 'vaquillona.jpg', 'Vaquillonas para reposición'),
 ('vaca', 'Lote E', 22, 1800000.00, 'vaca.jpg', 'Vacas preñadas'),
 ('toro', 'Lote F', 8, 2500000.00, 'toro.jpg', 'Toros reproductores');
-
-luego ir al archivo app.py y compilarlo

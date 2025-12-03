@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venta de Ganado</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>Venta de Ganado</h1>
+                <p class="slogan">Calidad y tradición en cada animal</p>
+            </div>
+            <div class="contacto">
+                <p><strong>Teléfono:</strong> +54 9 11 1234-5678</p>
+                <p><strong>Ubicación:</strong> Campo "El Fortín", Buenos Aires</p>
+            </div>
+        </header>
+
+        <!-- Introducción -->
+        <section class="intro">
+            <h2>Catálogo de Ganado Disponible</h2>
+            <p>Seleccione entre nuestras categorías de animales disponibles para venta. Todos nuestros animales cuentan con certificado sanitario vigente.</p>
+        </section>
+
+        <!-- Grid de animales -->
+        <main class="galeria">
+            {% for animal in animales %}
+            <div class="animal-card">
+                <div class="imagen-container">
+                    <img src="{{ url_for('static', filename='images/' + animal.imagen) }}" 
+                         alt="{{ animal.nombre }}" 
+                         class="animal-imagen"
+                         onerror="this.src='https://via.placeholder.com/400x300?text={{ animal.nombre }}'">
+                    <div class="lote-badge">{{ animal.lote }}</div>
+                </div>
+                <div class="info-animal">
+                    <div class="cabecera-animal">
+                        <h3>{{ animal.nombre }}</h3>
+                        <span class="precio">{{ animal.precio }}</span>
+                    </div>
+                    <p class="descripcion">{{ animal.descripcion }}</p>
+                    <div class="detalles">
+                        <span class="detalle-item">Lote: {{ animal.lote }}</span>
+                        <span class="detalle-item">Precio: {{ animal.precio }}</span>
+                    </div>
+                    <button class="btn-consulta" onclick="mostrarConsulta('{{ animal.nombre }}')">
+                        Consultar sobre este animal
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </main>
+
+        <!-- Información adicional -->
+        <section class="informacion">
+            <div class="info-box">
+                <h3><span class="icon">✓</span> Garantía de Salud</h3>
+                <p>Todos nuestros animales cuentan con certificado sanitario vigente y control veterinario periódico.</p>
+            </div>
+            <div class="info-box">
+                <h3><span class="icon">🚚</span> Envío Incluído</h3>
+                <p>Transporte de ganado a todo el país incluído en el precio para lotes superiores a 5 animales.</p>
+            </div>
+            <div class="info-box">
+                <h3><span class="icon">👨‍🌾</span> Asesoramiento</h3>
+                <p>Nuestros expertos le brindarán asesoramiento gratuito para seleccionar el ganado ideal.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-section">
+                <h4>Venta de Ganado</h4>
+                <p>Especialistas en ganadería de calidad desde 1995.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <p><strong>Teléfono:</strong> +54 9 11 1234-5678</p>
+                <p><strong>Email:</strong> contacto@ventaganado.com</p>
+                <p><strong>Dirección:</strong> Ruta 5, Km 123, Buenos Aires</p>
+            </div>
+            <div class="footer-section">
+                <h4>Horarios</h4>
+                <p>Lunes a Viernes: 8:00 - 18:00</p>
+                <p>Sábados: 8:00 - 13:00</p>
+                <p>Domingos: Cerrado</p>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Venta de Ganado. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal de consulta (simple) -->
+    <div id="modal-consulta" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar-modal" onclick="cerrarModal()">×</span>
+            <h2>Consultar sobre: <span id="nombre-animal"></span></h2>
+            <form id="form-consulta" onsubmit="enviarConsulta(event)">
+                <div class="form-group">
+                    <label for="nombre">Nombre completo:</label>
+                    <input type="text" id="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <input type="tel" id="telefono" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo electrónico:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="mensaje">Mensaje:</label>
+                    <textarea id="mensaje" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-enviar">Enviar consulta</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript simple incluido en el HTML -->
+    <script>
+        // Funciones para el modal
+        function mostrarConsulta(nombreAnimal) {
+            document.getElementById('nombre-animal').textContent = nombreAnimal;
+            document.getElementById('modal-consulta').style.display = 'flex';
+        }
+        
+        function cerrarModal() {
+            document.getElementById('modal-consulta').style.display = 'none';
+            document.getElementById('form-consulta').reset();
+        }
+        
+        function enviarConsulta(event) {
+            event.preventDefault();
+            const nombre = document.getElementById('nombre').value;
+            const animal = document.getElementById('nombre-animal').textContent;
+            
+            alert(`¡Gracias ${nombre}! Hemos recibido tu consulta sobre ${animal}. Nos pondremos en contacto contigo pronto.`);
+            
+            cerrarModal();
+        }
+        
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal-consulta');
+            if (event.target === modal) {
+                cerrarModal();
+            }
+        }
+        
+        // Función para manejar imágenes que no cargan
+        function manejarErrorImagen(imagen) {
+            const nombre = imagen.alt;
+            imagen.src = `https://via.placeholder.com/400x300/4CAF50/ffffff?text=${encodeURIComponent(nombre)}`;
+        }
+    </script>
+</body>
+</html>
